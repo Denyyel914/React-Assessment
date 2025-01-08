@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import {
   useReactTable,
   getCoreRowModel,
@@ -10,7 +10,7 @@ import { Loader2 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useFavorites } from "../context/FavoriteContext";
 
-const Table = ({ columns, data, loading }) => {
+const Table = ({ columns, data, loading, showFavorites }) => {
   const { favoriteData, toggleFavorite } = useFavorites();
   const navigate = useNavigate();
 
@@ -24,13 +24,11 @@ const Table = ({ columns, data, loading }) => {
 
   return (
     <div className="relative">
-      {/* Spinner centered in the table */}
       {loading && (
         <div className="absolute top-0 left-0 right-0 bottom-0 flex justify-center items-center bg-white bg-opacity-50">
           <Loader2 className="animate-spin text-gray-500" size={40} />
         </div>
       )}
-
       <table className="mt-5 w-full">
         <thead>
           {table.getHeaderGroups().map((headerGroup) => (
@@ -46,7 +44,7 @@ const Table = ({ columns, data, loading }) => {
                   )}
                 </th>
               ))}
-              <th className="py-3 px-4 border-b"></th>
+              {showFavorites && <th className="py-3 px-4 border-b"></th>}
             </tr>
           ))}
         </thead>
@@ -65,7 +63,7 @@ const Table = ({ columns, data, loading }) => {
                   onClick={
                     cell.column.id === "id"
                       ? () =>
-                          navigate(`/row/${row.original.id}`, {
+                          navigate(`/item/${row.original.id}`, {
                             state: row.original,
                           })
                       : undefined
@@ -74,21 +72,22 @@ const Table = ({ columns, data, loading }) => {
                   {flexRender(cell.column.columnDef.cell, cell.getContext())}
                 </td>
               ))}
-              <td
-                className="p-2 border-b border-[#C3C6CF] text-[#1A1C1E] font-normal text-sm"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  toggleFavorite(row.original);
-                }}
-              >
-                {favoriteData.some(
-                  (selectedRow) => selectedRow.id === row.original.id
-                ) ? (
-                  <FaStar className="text-yellow-500" size={24} />
-                ) : (
-                  <CiStar className="cursor-pointer" size={24} />
-                )}
-              </td>
+
+              {showFavorites && (
+                <td
+                  className="p-2 border-b"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    toggleFavorite(row.original);
+                  }}
+                >
+                  {favoriteData.some((fav) => fav.id === row.original.id) ? (
+                    <FaStar className="text-yellow-500" size={24} />
+                  ) : (
+                    <CiStar className="cursor-pointer" size={24} />
+                  )}
+                </td>
+              )}
             </tr>
           ))}
         </tbody>

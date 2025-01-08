@@ -15,7 +15,7 @@ const App = () => {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/favorites" element={<Favorites />} />
-            <Route path="/row/:id" element={<ItemDetail />} />{" "}
+            <Route path="/item/:id" element={<ItemDetail />} />{" "}
             {/* Dynamic route */}
             <Route path="*" element={<h1>404 - Page Not Found</h1>} />
           </Routes>

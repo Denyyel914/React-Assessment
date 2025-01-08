@@ -37,13 +37,27 @@ const Home = () => {
     { Header: "ID", accessorKey: "id" },
     { Header: "Title", accessorKey: "title" },
     { Header: "Description", accessorKey: "description" },
-    { Header: "Price", accessorKey: "price" },
-    { Header: "Image", accessorKey: "image" },
+    {
+      Header: "Price",
+      accessorKey: "price",
+      cell: ({ row }) => <span>${row.original.price.toFixed(2)}</span>,
+    },
+    {
+      Header: "Image",
+      accessorKey: "image",
+      cell: ({ row }) => (
+        <img
+          src={row.original.image}
+          alt={row.original.title}
+          className="w-16 h-16 object-contain"
+        />
+      ),
+    },
   ];
 
   const handleClear = () => {
     clearFavorites();
-    localStorage.removeItem("products"); // Optionally clear cached data when clearing favorites
+    localStorage.removeItem("products");
   };
 
   return (
@@ -58,7 +72,12 @@ const Home = () => {
         </button>
       </div>
 
-      <Table data={data} columns={columns} loading={loading} />
+      <Table
+        data={data}
+        columns={columns}
+        loading={loading}
+        showFavorites={true}
+      />
     </div>
   );
 };
