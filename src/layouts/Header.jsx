@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { useFavorites } from "../context/FavoriteContext";
 
 const Header = () => {
-  const { selectedRows } = useFavorites();
+  const { favoriteData } = useFavorites();
 
   return (
     <header className="border-b border-outline fixed top-0 z-50 bg-white w-full">
@@ -21,7 +21,7 @@ const Header = () => {
               <Link to="/favorites">
                 Favorites{" "}
                 <span className=" text-yellow-500 ">
-                  {selectedRows.length > 0 ? selectedRows.length : ""}
+                  {favoriteData.length > 0 ? favoriteData.length : ""}
                 </span>
               </Link>
             </li>

@@ -5,21 +5,21 @@ const FavoriteContext = createContext();
 export const useFavorites = () => useContext(FavoriteContext);
 
 export const FavoriteProvider = ({ children }) => {
-  const [selectedRows, setSelectedRows] = useState([]);
+  const [favoriteData, setfavoriteData] = useState([]);
 
-  const handleRowClick = (row) => {
-    setSelectedRows((prevSelectedRows) =>
-      prevSelectedRows.some(({ id }) => id === row.id)
-        ? prevSelectedRows.filter(({ id }) => id !== row.id)
-        : [...prevSelectedRows, row]
+  const toggleFavorite = (row) => {
+    setfavoriteData((prevfavoriteData) =>
+      prevfavoriteData.some(({ id }) => id === row.id)
+        ? prevfavoriteData.filter(({ id }) => id !== row.id)
+        : [...prevfavoriteData, row]
     );
   };
 
-  const clearFavorites = () => setSelectedRows([]);
+  const clearFavorites = () => setfavoriteData([]);
 
   return (
     <FavoriteContext.Provider
-      value={{ selectedRows, handleRowClick, clearFavorites }}
+      value={{ favoriteData, toggleFavorite, clearFavorites }}
     >
       {children}
     </FavoriteContext.Provider>

@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom";
 import { useFavorites } from "../context/FavoriteContext";
 
 const Table = ({ columns, data, loading }) => {
-  const { selectedRows, handleRowClick } = useFavorites();
+  const { favoriteData, toggleFavorite } = useFavorites();
   const navigate = useNavigate();
 
   const dataTable = useMemo(() => data, [data]);
@@ -75,10 +75,10 @@ const Table = ({ columns, data, loading }) => {
                 className="p-2 border-b border-[#C3C6CF] text-[#1A1C1E] font-normal text-sm"
                 onClick={(e) => {
                   e.stopPropagation();
-                  handleRowClick(row.original);
+                  toggleFavorite(row.original);
                 }}
               >
-                {selectedRows.some(
+                {favoriteData.some(
                   (selectedRow) => selectedRow.id === row.original.id
                 ) ? (
                   <FaStar className="text-yellow-500" size={24} />
