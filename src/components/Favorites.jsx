@@ -1,16 +1,16 @@
-import { useSelector } from "react-redux";
+import { useFavorites } from "../context/FavoriteContext";
 
 const Favorites = () => {
-  const favorites = useSelector((state) => state.favorites.favorites);
+  const { selectedRows } = useFavorites();
 
   return (
     <div>
       <h2 className="text-xl font-bold mb-4">Favorite Items</h2>
-      {favorites.length > 0 ? (
+      {selectedRows.length > 0 ? (
         <ul>
-          {favorites.map((item) => (
+          {selectedRows.map((item) => (
             <li key={item.id} className="mb-2 border-b p-2">
-              <strong>{item.title}</strong> - {item.description} - {item.price}
+              <strong>{item.title}</strong> - {item.description} - ${item.price}
             </li>
           ))}
         </ul>

@@ -8,10 +8,12 @@ import { CiStar } from "react-icons/ci";
 import { FaStar } from "react-icons/fa";
 import { Loader2 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { useFavorites } from "../context/FavoriteContext";
 
 const Table = ({ columns, data, loading }) => {
+  const { selectedRows, handleRowClick } = useFavorites();
   const navigate = useNavigate();
-  const [selectedRows, setSelectedRows] = useState([]);
+
   const dataTable = useMemo(() => data, [data]);
 
   const table = useReactTable({
@@ -19,14 +21,6 @@ const Table = ({ columns, data, loading }) => {
     columns,
     getCoreRowModel: getCoreRowModel(),
   });
-
-  const handleRowClick = (row) => {
-    setSelectedRows((prevSelectedRows) =>
-      prevSelectedRows.some(({ id }) => id === row.id)
-        ? prevSelectedRows.filter(({ id }) => id !== row.id)
-        : [...prevSelectedRows, row]
-    );
-  };
 
   return (
     <div className="relative">

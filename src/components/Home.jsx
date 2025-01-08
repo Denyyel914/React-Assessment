@@ -1,15 +1,13 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Table from "../components/Table";
-import { useDispatch } from "react-redux";
-import { clearFavorites } from "../store/favoriteSlice";
+import { useFavorites } from "../context/FavoriteContext";
 
 const Home = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true); // Loading state
 
-  const dispatch = useDispatch();
-
+  const { clearFavorites } = useFavorites();
   useEffect(() => {
     const getData = async () => {
       const cachedData = localStorage.getItem("products");
@@ -44,7 +42,7 @@ const Home = () => {
   ];
 
   const handleClear = () => {
-    dispatch(clearFavorites());
+    clearFavorites();
     localStorage.removeItem("products"); // Optionally clear cached data when clearing favorites
   };
 
