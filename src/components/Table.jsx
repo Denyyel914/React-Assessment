@@ -64,7 +64,10 @@ const Table = ({ columns, data, loading }) => {
                   }`}
                   onClick={
                     cell.column.id === "id"
-                      ? () => navigate(`/row/${row.original.id}`)
+                      ? () =>
+                          navigate(`/row/${row.original.id}`, {
+                            state: row.original,
+                          })
                       : undefined
                   }
                 >

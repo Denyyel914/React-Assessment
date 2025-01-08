@@ -1,28 +1,21 @@
-import { useParams } from "react-router-dom";
-import { useMemo } from "react";
-import data from "../data/Mock_Data.json";
+import { useParams, useLocation } from "react-router-dom";
 
-const RowDetails = () => {
+const ItemDetails = () => {
   const { id } = useParams();
-  const item = useMemo(
-    () => data.find((item) => item.id === parseInt(id)),
-    [id]
-  );
+  const location = useLocation();
+  const item = location.state;
 
-  if (!item) {
-    return <h2>Item not found</h2>;
-  }
+  if (!item) return <p>No item data available. Try refreshing the page.</p>;
 
   return (
     <div>
-      <h1 className=" text-2xl mb-4">Product Detail</h1>
-      <h2>{item.title}</h2>
-      <p>{id.title}</p>
+      <h1 className="text-2xl mb-4">Product Detail</h1>
+      <h2 className="text-xl font-bold">{item.title}</h2>
       <p>{item.description}</p>
-      <p>Price: {item.price}</p>
-      {/* <img src={item.image} alt={item.title} /> */}
+      <p>Price: ${item.price}</p>
+      <img src={item.image} alt={item.title} className="w-64 h-64 mt-4" />
     </div>
   );
 };
 
-export default RowDetails;
+export default ItemDetails;
