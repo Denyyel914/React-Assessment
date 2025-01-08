@@ -1,6 +1,9 @@
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const Header = () => {
+  const favorites = useSelector((state) => state.favorites.favorites);
+
   return (
     <header className="border-b border-outline fixed top-0 z-50 bg-white w-full">
       <nav className="w-full mx-auto flex items-center justify-between flex-wrap px-4 py-3">
@@ -15,7 +18,12 @@ const Header = () => {
               <Link to="/">Home</Link>
             </li>
             <li>
-              <Link to="/favorites">Favorites</Link>
+              <Link to="/favorites">
+                Favorites{" "}
+                <span className=" text-yellow-500 ">
+                  {favorites.length > 0 ? favorites.length : ""}
+                </span>
+              </Link>
             </li>
           </ul>
         </div>
