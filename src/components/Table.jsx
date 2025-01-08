@@ -1,36 +1,42 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import {
   useReactTable,
   getCoreRowModel,
   flexRender,
-  getSortedRowModel,
 } from "@tanstack/react-table";
 import { CiStar } from "react-icons/ci";
 import { FaStar } from "react-icons/fa";
+import { Loader2 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { toggleFavorite } from "../store/favoriteSlice";
 
-const Table = ({ columns, data }) => {
+const Table = ({ columns, data, loading }) => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const favorites = useSelector((state) => state.favorites.favorites);
-
+  const [selectedRows, setSelectedRows] = useState([]);
   const dataTable = useMemo(() => data, [data]);
 
   const table = useReactTable({
     data: dataTable,
     columns,
     getCoreRowModel: getCoreRowModel(),
-    getSortedRowModel: getSortedRowModel(),
   });
 
   const handleRowClick = (row) => {
-    dispatch(toggleFavorite(row));
+    setSelectedRows((prevSelectedRows) =>
+      prevSelectedRows.some(({ id }) => id === row.id)
+        ? prevSelectedRows.filter(({ id }) => id !== row.id)
+        : [...prevSelectedRows, row]
+    );
   };
 
   return (
-    <div>
+    <div className="relative">
+      {/* Spinner centered in the table */}
+      {loading && (
+        <div className="absolute top-0 left-0 right-0 bottom-0 flex justify-center items-center bg-white bg-opacity-50">
+          <Loader2 className="animate-spin text-gray-500" size={40} />
+        </div>
+      )}
+
       <table className="mt-5 w-full">
         <thead>
           {table.getHeaderGroups().map((headerGroup) => (
@@ -38,7 +44,7 @@ const Table = ({ columns, data }) => {
               {headerGroup.headers.map((header) => (
                 <th
                   key={header.id}
-                  className="py-3 px-4 text-left border-b capitalize"
+                  className="py-3 px-4 text-left border-b text-black-700 font-medium text-sm uppercase"
                 >
                   {flexRender(
                     header.column.columnDef.header,
@@ -53,14 +59,7 @@ const Table = ({ columns, data }) => {
 
         <tbody>
           {table.getRowModel().rows.map((row) => (
-            <tr
-              key={row.id}
-              className={
-                favorites.some((fav) => fav.id === row.original.id)
-                  ? "bg-yellow-100"
-                  : ""
-              }
-            >
+            <tr key={row.id}>
               {row.getVisibleCells().map((cell) => (
                 <td
                   key={cell.id}
@@ -79,13 +78,15 @@ const Table = ({ columns, data }) => {
                 </td>
               ))}
               <td
-                className="p-2 border-b cursor-pointer"
+                className="p-2 border-b border-[#C3C6CF] text-[#1A1C1E] font-normal text-sm"
                 onClick={(e) => {
                   e.stopPropagation();
                   handleRowClick(row.original);
                 }}
               >
-                {favorites.some((fav) => fav.id === row.original.id) ? (
+                {selectedRows.some(
+                  (selectedRow) => selectedRow.id === row.original.id
+                ) ? (
                   <FaStar className="text-yellow-500" size={24} />
                 ) : (
                   <CiStar className="cursor-pointer" size={24} />

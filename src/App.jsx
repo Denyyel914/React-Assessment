@@ -14,6 +14,7 @@ const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="/favorites" element={<Favorites />} />
           <Route path="/row/:id" element={<RowDetails />} />{" "}
+          {/* Dynamic route */}
           <Route path="*" element={<h1>404 - Page Not Found</h1>} />
         </Routes>
       </main>
