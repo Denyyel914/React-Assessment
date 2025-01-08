@@ -1,0 +1,5 @@
+[{"id":1,"title":"Lean Chicken Breast","description":"High in protein, low in fat, perfect for muscle recovery and growth","price":"$100","image":"http://dummyimage.com/175x100.png/ff4444/ffffff"},
+{"id":2,"title":"Eggs","description":"Packed with protein and essential amino acids, great for muscle repair","price":"$100","image":"http://dummyimage.com/161x100.png/ff4444/ffffff"},
+{"id":3,"title":" Brown Rice","description":"Complex carbohydrates for sustained energy during workouts","price":"$100","image":"http://dummyimage.com/124x100.png/dddddd/000000"},
+{"id":4,"title":"Almonds","description":"Healthy fats, protein, and fiber to keep you fueled and satisfied","price":"$100","image":"http://dummyimage.com/214x100.png/dddddd/000000"},
+{"id":5,"title":"Bananas ","description":"Rich in potassium and natural sugars, they help prevent muscle cramps, replenish glycogen stores, and provide a quick energy boost before or after a workout.","price":"$100","image":"http://dummyimage.com/239x100.png/dddddd/000000"}]
