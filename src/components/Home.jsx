@@ -2,30 +2,49 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import Table from "../components/Table";
 import { useFavorites } from "../context/FavoriteContext";
+import { showToast } from "./Toastify";
 
 const Home = () => {
   const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(true); // Loading state
-
+  const [loading, setLoading] = useState(true);
   const { clearFavorites } = useFavorites();
+
   useEffect(() => {
     const getData = async () => {
       const cachedData = localStorage.getItem("products");
       if (cachedData) {
         setData(JSON.parse(cachedData));
-        setLoading(false); // Stop loading if data is cached
+        setLoading(false);
       } else {
         try {
           setLoading(true); // Start loading
           const res = await axios.get(
             "https://fakestoreapi.com/products?limit=5"
           );
-          setData(res.data);
-          localStorage.setItem("products", JSON.stringify(res.data)); // Cache the data
+
+          if (res.status === 200) {
+            setData(res.data);
+            localStorage.setItem("products", JSON.stringify(res.data));
+            showToast("Data fetched successfully", "success");
+          } else {
+            throw new Error(`Unexpected status code: ${res.status}`);
+          }
         } catch (error) {
           console.error(error);
+          if (error.response) {
+            const status = error.response.status;
+            if (status === 404) {
+              showToast("Data not found (404)", "warning");
+            } else if (status === 500) {
+              showToast("Server error (500)", "error");
+            } else {
+              showToast(`Error: ${error.message}`, "error");
+            }
+          } else {
+            showToast("Network error. Please try again.", "error");
+          }
         } finally {
-          setLoading(false); // Stop loading
+          setLoading(false);
         }
       }
     };
@@ -58,6 +77,7 @@ const Home = () => {
   const handleClear = () => {
     clearFavorites();
     localStorage.removeItem("products");
+    showToast("Favorites cleared", "info");
   };
 
   return (

@@ -5,10 +5,12 @@ import Favorites from "./components/Favorites";
 import ItemDetail from "./components/ItemDetail";
 import { Route, Routes } from "react-router-dom";
 import { FavoriteProvider } from "./context/FavoriteContext";
+import ToastNotification from "./components/Toastify";
 
 const App = () => {
   return (
     <FavoriteProvider>
+      <ToastNotification />
       <div>
         <Header />
         <main className="p-4 md:p-8 lg:p-16">
