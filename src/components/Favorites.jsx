@@ -26,7 +26,7 @@ const Favorites = () => {
 
   return (
     <div>
-      <h2 className="text-xl font-bold mb-4">Favorite Items</h2>
+      <h1 className="text-2xl mb-4">Favorite Items</h1>
       {favoriteData.length > 0 ? (
         <Table data={favoriteData} columns={columns} showFavorites={false} />
       ) : (

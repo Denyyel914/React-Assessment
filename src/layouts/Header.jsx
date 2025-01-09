@@ -8,7 +8,7 @@ const Header = () => {
     <header className="border-b border-outline fixed top-0 z-50 bg-white w-full">
       <nav className="w-full mx-auto flex items-center justify-between flex-wrap px-4 py-3">
         <div className="flex justify-center items-center gap-2">
-          <h1 className="text-xl text-[#0077D4] font-bold">
+          <h1 className="text-xl text-[#0077D4] ">
             <Link to="/" onClick={() => clearFavorites()}>
               Supermarket Product
             </Link>
