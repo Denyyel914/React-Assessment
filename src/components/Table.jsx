@@ -39,7 +39,7 @@ const Table = ({ columns, data, showFavorites }) => {
               {headerGroup.headers.map((header) => (
                 <th
                   key={header.id}
-                  className="py-3 px-4 text-left border-b capitalize"
+                  className="py-3 px-4 text-left border-b  capitalize"
                 >
                   {flexRender(
                     header.column.columnDef.header,

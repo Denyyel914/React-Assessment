@@ -29,7 +29,7 @@ const Home = () => {
   const handleClear = () => dispatch(clearFavorites());
   return (
     <div>
-      <div className="flex justify-between">
+      <div className="flex justify-between mt-5">
         <h3 className="text-3xl  mb-4">List of Products</h3>
         <button
           className="bg-[#0077D4] text-sm px-2 py-2 cursor-pointer rounded-md text-white hover:opacity-90 focus:outline-none"
