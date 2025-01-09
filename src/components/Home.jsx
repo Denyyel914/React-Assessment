@@ -1,4 +1,3 @@
-import axios from "axios";
 import MockData from "../data/Mock_Data.json";
 import Table from "../components/Table";
 

@@ -115,7 +115,4 @@ Table.propTypes = {
   showFavorites: PropTypes.bool,
 };
 
-Table.defaultProps = {
-  showFavorites: false,
-};
 export default Table;
