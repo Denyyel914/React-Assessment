@@ -23,11 +23,13 @@ const Favorites = () => {
 
   return (
     <div>
-      <h2 className="text-xl font-bold mb-4">Favorite Items</h2>
+      <h1 className="text-xl mb-4">Favorite Items</h1>
       {favorites.length > 0 ? (
         <Table data={favorites} columns={columns} showFavorites={false} />
       ) : (
-        <p>No favorites selected.</p>
+        <h2 className="flex items-center justify-center h-screen">
+          No favorites selected.
+        </h2>
       )}
     </div>
   );

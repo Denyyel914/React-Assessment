@@ -4,6 +4,7 @@ import Header from "./layouts/Header";
 import Favorites from "./components/Favorites";
 import ItemDetail from "./components/ItemDetail";
 import { Route, Routes } from "react-router-dom";
+import ErrorPage from "./components/ErrorPage";
 
 const App = () => {
   return (
@@ -14,7 +15,7 @@ const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="/favorites" element={<Favorites />} />
           <Route path="/item/:id" element={<ItemDetail />} />{" "}
-          <Route path="*" element={<h1>404 - Page Not Found</h1>} />
+          <Route path="*" element={<ErrorPage />} />
         </Routes>
       </main>
       <Footer />
