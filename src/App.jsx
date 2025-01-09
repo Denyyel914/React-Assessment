@@ -6,6 +6,7 @@ import ItemDetail from "./components/ItemDetail";
 import { Route, Routes } from "react-router-dom";
 import { FavoriteProvider } from "./context/FavoriteContext";
 import ToastNotification from "./components/Toastify";
+import ErrorMessage from "./components/ErrorMessage";
 
 const App = () => {
   return (
@@ -19,7 +20,7 @@ const App = () => {
             <Route path="/favorites" element={<Favorites />} />
             <Route path="/item/:id" element={<ItemDetail />} />{" "}
             {/* Dynamic route */}
-            <Route path="*" element={<h1>404 - Page Not Found</h1>} />
+            <Route path="*" element={<ErrorMessage />} />
           </Routes>
         </main>
         <Footer />
