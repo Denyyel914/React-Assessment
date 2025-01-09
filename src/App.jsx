@@ -2,7 +2,7 @@ import Home from "./components/Home";
 import Footer from "./layouts/Footer";
 import Header from "./layouts/Header";
 import Favorites from "./components/Favorites";
-import RowDetails from "./components/RowDetails";
+import ItemDetail from "./components/ItemDetail";
 import { Route, Routes } from "react-router-dom";
 
 const App = () => {
@@ -13,7 +13,7 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/favorites" element={<Favorites />} />
-          <Route path="/row/:id" element={<RowDetails />} />{" "}
+          <Route path="/item/:id" element={<ItemDetail />} />{" "}
           <Route path="*" element={<h1>404 - Page Not Found</h1>} />
         </Routes>
       </main>

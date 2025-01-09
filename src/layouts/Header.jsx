@@ -1,15 +1,19 @@
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { clearFavorites } from "../store/favoriteSlice";
 
 const Header = () => {
   const favorites = useSelector((state) => state.favorites.favorites);
+  const dispatch = useDispatch();
 
   return (
     <header className="border-b border-outline fixed top-0 z-50 bg-white w-full">
       <nav className="w-full mx-auto flex items-center justify-between flex-wrap px-4 py-3">
         <div className="flex justify-center items-center gap-2">
           <h1 className="text-xl text-[#0077D4] font-bold">
-            <Link to="/">Supermarket Product</Link>
+            <Link to="/" onClick={() => dispatch(clearFavorites())}>
+              Supermarket Product
+            </Link>
           </h1>
         </div>
         <div className="flex justify-center items-center">

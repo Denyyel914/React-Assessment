@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleFavorite } from "../store/favoriteSlice";
 
-const Table = ({ columns, data }) => {
+const Table = ({ columns, data, showFavorites }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const favorites = useSelector((state) => state.favorites.favorites);
@@ -56,6 +56,7 @@ const Table = ({ columns, data }) => {
             <tr
               key={row.id}
               className={
+                showFavorites &&
                 favorites.some((fav) => fav.id === row.original.id)
                   ? "bg-yellow-100"
                   : ""
@@ -71,26 +72,28 @@ const Table = ({ columns, data }) => {
                   }`}
                   onClick={
                     cell.column.id === "id"
-                      ? () => navigate(`/row/${row.original.id}`)
+                      ? () => navigate(`/item/${row.original.id}`)
                       : undefined
                   }
                 >
                   {flexRender(cell.column.columnDef.cell, cell.getContext())}
                 </td>
               ))}
-              <td
-                className="p-2 border-b cursor-pointer"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  handleRowClick(row.original);
-                }}
-              >
-                {favorites.some((fav) => fav.id === row.original.id) ? (
-                  <FaStar className="text-yellow-500" size={24} />
-                ) : (
-                  <CiStar className="cursor-pointer" size={24} />
-                )}
-              </td>
+              {showFavorites && (
+                <td
+                  className="p-2 border-b cursor-pointer"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleRowClick(row.original);
+                  }}
+                >
+                  {favorites.some((fav) => fav.id === row.original.id) ? (
+                    <FaStar className="text-yellow-500" size={24} />
+                  ) : (
+                    <CiStar className="cursor-pointer" size={24} />
+                  )}
+                </td>
+              )}
             </tr>
           ))}
         </tbody>

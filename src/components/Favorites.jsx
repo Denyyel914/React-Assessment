@@ -1,19 +1,31 @@
 import { useSelector } from "react-redux";
-
+import Table from "./Table";
 const Favorites = () => {
   const favorites = useSelector((state) => state.favorites.favorites);
+
+  const columns = [
+    { Header: "ID", accessorKey: "id" },
+    { Header: "Title", accessorKey: "title" },
+    { Header: "Description", accessorKey: "description" },
+    { Header: "Price", accessorKey: "price" },
+    {
+      Header: "Image",
+      accessorKey: "image",
+      cell: ({ row }) => (
+        <img
+          src={row.original.image}
+          alt={row.original.title}
+          className="h-12 w-12 object-cover rounded"
+        />
+      ),
+    },
+  ];
 
   return (
     <div>
       <h2 className="text-xl font-bold mb-4">Favorite Items</h2>
       {favorites.length > 0 ? (
-        <ul>
-          {favorites.map((item) => (
-            <li key={item.id} className="mb-2 border-b p-2">
-              <strong>{item.title}</strong> - {item.description} - {item.price}
-            </li>
-          ))}
-        </ul>
+        <Table data={favorites} columns={columns} showFavorites={false} />
       ) : (
         <p>No favorites selected.</p>
       )}

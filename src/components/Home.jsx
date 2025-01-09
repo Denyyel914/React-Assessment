@@ -14,7 +14,17 @@ const Home = () => {
     { Header: "Title", accessorKey: "title" },
     { Header: "Description", accessorKey: "description" },
     { Header: "Price", accessorKey: "price" },
-    { Header: "Image", accessorKey: "image" },
+    {
+      Header: "Image",
+      accessorKey: "image",
+      cell: ({ row }) => (
+        <img
+          src={row.original.image}
+          alt={row.original.title}
+          className="h-12 w-12 object-cover rounded"
+        />
+      ),
+    },
   ];
 
   const handleClear = () => dispatch(clearFavorites());
@@ -29,7 +39,7 @@ const Home = () => {
           Clear favorites
         </button>
       </div>
-      <Table data={MockData} columns={columns} />
+      <Table data={MockData} columns={columns} showFavorites={true} />
     </div>
   );
 };
