@@ -1,4 +1,5 @@
 import { useMemo } from "react";
+import PropTypes from "prop-types";
 import {
   useReactTable,
   getCoreRowModel,
@@ -102,4 +103,19 @@ const Table = ({ columns, data, showFavorites }) => {
   );
 };
 
+Table.propTypes = {
+  columns: PropTypes.arrayOf(
+    PropTypes.shape({
+      Header: PropTypes.string.isRequired,
+      accessorKey: PropTypes.string.isRequired,
+      cell: PropTypes.func,
+    })
+  ).isRequired,
+  data: PropTypes.arrayOf(PropTypes.object).isRequired,
+  showFavorites: PropTypes.bool,
+};
+
+Table.defaultProps = {
+  showFavorites: false,
+};
 export default Table;
