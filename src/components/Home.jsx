@@ -7,7 +7,7 @@ import { showToast } from "./Toastify";
 const Home = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
-  const { clearFavorites } = useFavorites();
+  const { clearFavorites, favoriteData, columns } = useFavorites();
 
   useEffect(() => {
     const getData = async () => {
@@ -52,37 +52,41 @@ const Home = () => {
     getData();
   }, []);
 
-  const columns = [
-    { Header: "ID", accessorKey: "id" },
-    { Header: "Title", accessorKey: "title" },
-    { Header: "Description", accessorKey: "description" },
-    {
-      Header: "Price",
-      accessorKey: "price",
-      cell: ({ row }) => <span>${row.original.price.toFixed(2)}</span>,
-    },
-    {
-      Header: "Image",
-      accessorKey: "image",
-      cell: ({ row }) => (
-        <img
-          src={row.original.image}
-          alt={row.original.title}
-          className="w-16 h-16 object-contain"
-        />
-      ),
-    },
-  ];
+  // const columns = [
+  //   { Header: "ID", accessorKey: "id" },
+  //   { Header: "Title", accessorKey: "title" },
+  //   { Header: "Description", accessorKey: "description" },
+  //   {
+  //     Header: "Price",
+  //     accessorKey: "price",
+  //     cell: ({ row }) => <span>${row.original.price.toFixed(2)}</span>,
+  //   },
+  //   {
+  //     Header: "Image",
+  //     accessorKey: "image",
+  //     cell: ({ row }) => (
+  //       <img
+  //         src={row.original.image}
+  //         alt={row.original.title}
+  //         className="w-16 h-16 object-contain"
+  //       />
+  //     ),
+  //   },
+  // ];
 
   const handleClear = () => {
-    clearFavorites();
-    localStorage.removeItem("products");
-    showToast("Favorites cleared", "info");
+    if (favoriteData) {
+      clearFavorites();
+      localStorage.removeItem("products");
+      showToast("Favorites cleared", "info");
+    } else {
+      showToast("There are no favorites at the moment.", "info");
+    }
   };
 
   return (
     <div>
-      <div className="flex justify-between items-center mt-5">
+      <div className="flex justify-between items-center mt-3 md:mt-5 lg:mt-8">
         <h3 className="text-3xl mb-4">List of Products</h3>
         <button
           className="bg-[#0077D4] text-sm px-2 py-2 cursor-pointer rounded-md text-white hover:opacity-90 focus:outline-none"

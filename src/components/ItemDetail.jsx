@@ -1,8 +1,10 @@
 import { useEffect, useState, useMemo } from "react";
 import { useParams, useLocation, useNavigate } from "react-router-dom";
+import { useFavorites } from "../context/FavoriteContext";
 import Table from "./Table";
 
 const ItemDetails = () => {
+  const { columns } = useFavorites();
   const { id } = useParams();
   const location = useLocation();
   const navigate = useNavigate();
@@ -15,31 +17,6 @@ const ItemDetails = () => {
       setDataTable([item]);
     }
   }, [item]);
-
-  const columns = useMemo(
-    () => [
-      { Header: "ID", accessorKey: "id" },
-      { Header: "Title", accessorKey: "title" },
-      { Header: "Description", accessorKey: "description" },
-      {
-        Header: "Price",
-        accessorKey: "price",
-        cell: ({ row }) => <span>${row.original.price.toFixed(2)}</span>,
-      },
-      {
-        Header: "Image",
-        accessorKey: "image",
-        cell: ({ row }) => (
-          <img
-            src={row.original.image}
-            alt={row.original.title}
-            className="w-16 h-16 object-contain"
-          />
-        ),
-      },
-    ],
-    []
-  );
 
   if (!item) {
     return (

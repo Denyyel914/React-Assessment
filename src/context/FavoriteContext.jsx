@@ -15,11 +15,33 @@ export const FavoriteProvider = ({ children }) => {
     );
   };
 
+  const columns = [
+    { Header: "ID", accessorKey: "id" },
+    { Header: "Title", accessorKey: "title" },
+    { Header: "Description", accessorKey: "description" },
+    {
+      Header: "Price",
+      accessorKey: "price",
+      cell: ({ row }) => <span>${row.original.price.toFixed(2)}</span>,
+    },
+    {
+      Header: "Image",
+      accessorKey: "image",
+      cell: ({ row }) => (
+        <img
+          src={row.original.image}
+          alt={row.original.title}
+          className="w-16 h-16 object-contain"
+        />
+      ),
+    },
+  ];
+
   const clearFavorites = () => setfavoriteData([]);
 
   return (
     <FavoriteContext.Provider
-      value={{ favoriteData, toggleFavorite, clearFavorites }}
+      value={{ favoriteData, toggleFavorite, clearFavorites, columns }}
     >
       {children}
     </FavoriteContext.Provider>

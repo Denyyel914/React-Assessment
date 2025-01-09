@@ -51,7 +51,15 @@ const Table = ({ columns, data, loading, showFavorites }) => {
 
         <tbody>
           {table.getRowModel().rows.map((row) => (
-            <tr key={row.id}>
+            <tr
+              key={row.id}
+              className={
+                showFavorites &&
+                favoriteData.some((fav) => fav.id === row.original.id)
+                  ? "bg-yellow-100"
+                  : ""
+              }
+            >
               {row.getVisibleCells().map((cell) => (
                 <td
                   key={cell.id}
