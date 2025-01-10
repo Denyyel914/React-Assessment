@@ -2,7 +2,7 @@
 
 # Functionalities
 
-- Replaces hardcoded data with real data fetched from the Fake Store API.
+- Displays a list of hardcoded products (5 mock products).
 
 - Includes all features from the Master Branch:
 
@@ -22,14 +22,11 @@
 
   - Enables toggling between the product list and favorites.
 
-* Implements loading and error states for API calls.
-* Uses Context API for state management.
+* Uses Redux for state management.
 
-- API Integration
+- State Management
 
-  - Data is fetched using axios() within useEffect hooks.
-
-  - Includes loading indicators while data is being fetched and error handling for failed requests.
+  - Redux is used to manage the application state, particularly for storing and managing the list of favorite products.
 
 ## How to Run the Project
 
