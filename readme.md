@@ -1,10 +1,10 @@
-# Master Branch
+# Api-optional-integration Branch
 
 # Functionalities
 
-- Displays a list of hardcoded products (5 mock products).
+- Replaces hardcoded data with real data fetched from the Fake Store API.
 
-- Includes the following features:
+- Includes all features from the Master Branch:
 
   - Product List Screen:
 
@@ -22,11 +22,14 @@
 
   - Enables toggling between the product list and favorites.
 
-- Uses Redux for state management.
+* Implements loading and error states for API calls.
+* Uses Context API for state management.
 
-State Management
+- API Integration
 
-- Redux is used to manage the application state, particularly for storing and managing the list of favorite products.
+  - Data is fetched using axios() within useEffect hooks.
+
+  - Includes loading indicators while data is being fetched and error handling for failed requests.
 
 ## How to Run the Project
 
@@ -47,11 +50,14 @@ State Management
 
 2. **Install Dependencies**
 
-   ```npm install
+   ```bash
+    npm install
 
    ```
 
 3. **Run the Development Server: Using npm:**
-   ```npm run dev
+
+   ```bash
+    npm run dev
 
    ```
